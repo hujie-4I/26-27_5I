@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>SPA gatti casuali</title>
+
+        <!-- CSS -->
+        <style>
+            .contenitore-gatto-casuale {
+                text-align: center;
+            }
+            #gatto-casuale{
+                height: 400px;
+                width: auto;
+            }
+
+            .btn {
+                font-size: 24px;
+                background: plum;
+                border: 1px solid black;
+                border-radius: 4px;
+                padding: 6px;
+                margin: 10px;
+            }
+            #contenitore-bottoni {
+                display: flex;
+                justify-content: center;
+            }
+            #gatti-salvati {
+                margin: 80px;
+                border:  5px solid black;
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            #gatti-salvati img{
+
+                height: 120px;
+                margin: 10px;
+            }
+        </style>
+    </head>
+
+
+    <body>
+        <div id="contenitore-bottoni">
+            <button id="btn-ricarica" class="btn">Nuovo gatto</button>
+            <button id="salva" class="btn">Salva</button>
+        </div>
+       
+        <div  class="contenitore-gatto-casuale">
+            <img id="gatto-casuale" src="" alt="">
+        </div>
+        <h1>Salvati</h1>
+        <div id="gatti-salvati"></div>
+        
+
+        
+        
+        <!-- JavaScript -->
+        <script>
+const imgGattoCasuale = document.getElementById("gatto-casuale");
+const btnRicarica = document.getElementById("btn-ricarica");
+const btnSalva = document.getElementById("salva");
+const divSalva = document.getElementById("gatti-salvati");
+async function getRandomCat() {
+    const url = "https://cataas.com/cat?json=true";
+    const response = await fetch(url);
+    if (response.ok) {
+        const body = await response.json();
+        imgGattoCasuale.src = body.url;
+    }
+}
+
+
+
+btnRicarica.addEventListener("click", getRandomCat);
+
+getRandomCat();
+        btnSalva.addEventListener("click",salvaGatto);
+        function salvaGatto(){
+            const nuovaImg = document.createElement("img");
+            nuovaImg.src = imgGattoCasuale.src;
+            divSalva.append(nuovaImg);
+        }
+        </script>
+    </body>
+</html>
